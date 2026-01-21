@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RoyalX Handfree RH-6 (Type-C)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+body{
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  margin:0;
+}
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+.top{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:40px;
+}
+
+/* SLIDER */
+.slider{position:relative}
+.slider img{
+  width:100%;
+  border-radius:16px;
+  border:1px solid #222;
+}
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.6);
+  border:1px solid #333;
+  color:#fff;
+  font-size:22px;
+  padding:10px 14px;
+  cursor:pointer;
+  border-radius:50%;
+}
+.arrow.left{left:10px}
+.arrow.right{right:10px}
+
+/* INFO */
+.price-box del{color:#777}
+.price-box strong{font-size:28px;display:block}
+
+.btn{
+  background:#25D366;
+  color:#000;
+  padding:15px;
+  border-radius:12px;
+  display:block;
+  font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+  margin-top:18px;
+}
+.back{
+  display:inline-block;
+  margin-top:12px;
+  color:#25D366;
+  cursor:pointer;
+}
+
+.stats{font-size:14px;color:#bbb;margin:6px 0}
+.trust{display:flex;gap:12px;flex-wrap:wrap;color:#ccc;margin:14px 0}
+
+/* SECTIONS */
+.section{margin-top:50px}
+.spec-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:14px;
+}
+.spec{
+  background:#0f0f0f;
+  border:1px solid #222;
+  padding:14px;
+  border-radius:12px;
+}
+
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:18px;
+}
+.related-item{
+  background:#0f0f0f;
+  border:1px solid #222;
+  border-radius:14px;
+  padding:12px;
+  cursor:pointer;
+}
+.related-item img{
+  width:100%;
+  border-radius:10px;
+}
+
+@media(max-width:768px){
+  .top{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="top">
+    <!-- IMAGE SLIDER -->
+    <div class="slider">
+      <img id="mainImg" alt="RoyalX RH-6">
+      <div class="arrow left" onclick="prevImg()">‹</div>
+      <div class="arrow right" onclick="nextImg()">›</div>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div>
+      <h1 id="name"></h1>
+
+      <div class="price-box">
+        <del id="oldPrice"></del>
+        <strong id="price"></strong>
+      </div>
+
+      <p id="desc"></p>
+
+      <div class="stats">👀 <span id="viewing"></span> customers are viewing</div>
+      <div class="stats">🔥 <span id="sold"></span> sold in last 18 hours</div>
+
+      <div class="trust">
+        <span>✔ Original</span>
+        <span>🔒 Secure Payment</span>
+        <span>🚚 Fast Shipping</span>
+      </div>
+
+      <a id="buy" class="btn" target="_blank">Buy on WhatsApp</a>
+      <a class="back" onclick="history.back()">← Back</a>
+    </div>
+  </div>
+
+  <!-- SPECIFICATIONS -->
+  <div class="section">
+    <h2>Specifications</h2>
+    <div class="spec-grid" id="specs"></div>
+  </div>
+
+  <!-- RELATED PRODUCTS -->
+  <div class="section">
+    <h2>Other Products</h2>
+    <div class="related-grid" id="related"></div>
+  </div>
+
+</div>
+
+<script>
+/* PRODUCT DATA — HANDSFREE (TYPE-C) */
+const products = {
+
+  "royalx-rh6":{
+    name:"RoyalX Handfree RH-6 (Type-C)",
+    oldPrice:"Rs 1500",
+    price:"Rs 900",
+    desc:"RoyalX RH-6 Type-C in-ear handsfree with clear HD sound, deep bass and noise-reduction microphone. Comfortable fit for calls and music.",
+
+    images:["32.jpeg","38.jpg"],
+
+    specs:[
+      "Type-C Connector (No 3.5mm Jack)",
+      "Clear HD Sound & Deep Bass",
+      "Noise Reduction Microphone",
+      "In-line Controls (Call / Music)",
+      "Comfortable & Lightweight Design",
+      "Durable Tangle-Free Cable",
+      "Compatible with Type-C Android Devices"
+    ],
+
+    related:["royalx-rh5","royalx-rh9","royalx-rbt800","royalx-rbt400"]
+  },
+
+  "royalx-rh5":{
+    name:"RoyalX Handfree RH-5",
+    price:"Rs 350",
+    images:["33.jpeg"]
+  },
+
+  "royalx-rh9":{
+    name:"RoyalX Handfree RH-9",
+    price:"Rs 750",
+    images:["26.jpeg"]
+  },
+
+  "royalx-rbt800":{
+    name:"RoyalX Airbuds RBT-800",
+    price:"Rs 4500",
+    images:["28.jpeg"]
+  },
+
+  "royalx-rbt400":{
+    name:"RoyalX Airbuds RBT-400",
+    price:"Rs 5000",
+    images:["29.jpeg"]
+  }
+
+};
+
+/* PAGE LOGIC */
+const id = new URLSearchParams(location.search).get("id") || "royalx-rh6";
+const p = products[id];
+let current = 0;
+
+if(!p){
+  document.querySelector(".container").innerHTML = "<h2>Product not found</h2>";
+}else{
+  name.textContent = p.name;
+  price.textContent = p.price;
+  oldPrice.textContent = p.oldPrice || "";
+  desc.textContent = p.desc;
+  mainImg.src = p.images[0];
+
+  specs.innerHTML =
+    (p.specs||[]).map(s => `<div class="spec">${s}</div>`).join("");
+
+  viewing.textContent = Math.floor(Math.random()*15)+5;
+  sold.textContent = Math.floor(Math.random()*30)+10;
+
+  buy.href =
+    "https://wa.me/923279518790?text=" +
+    encodeURIComponent("I want " + p.name);
+
+  related.innerHTML =
+    (p.related||[]).map(r=>{
+      const rp = products[r];
+      return `
+        <div class="related-item"
+          onclick="location.href='rh6.html?id=${r}'">
+          <img src="${rp.images[0]}" alt="${rp.name}">
+          <h4>${rp.name}</h4>
+          <div>${rp.price}</div>
+        </div>`;
+    }).join("");
+}
+
+/* SLIDER */
+function nextImg(){
+  current = (current + 1) % p.images.length;
+  mainImg.src = p.images[current];
+}
+function prevImg(){
+  current = (current - 1 + p.images.length) % p.images.length;
+  mainImg.src = p.images[current];
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haider Mobiles & Accessories</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#000;
+  color:#fff;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 16px;
+  background:#020b1a;
+  border-bottom:1px solid rgba(212,175,55,.3);
+}
+header img{height:40px}
+.store-name{font-weight:bold;color:#d4af37}
+
+/* NAV */
+nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+nav a{cursor:pointer;color:#fff;text-decoration:none;font-size:14px}
+nav a:hover{color:#d4af37}
+
+/* SEARCH */
+nav input{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(212,175,55,.4);
+  border-radius:20px;
+  padding:6px 14px;
+  color:#fff;
+  outline:none;
+}
+nav input::placeholder{color:#aaa}
+
+/* BRAND MENU */
+.brand-menu{position:relative}
+
+/* ✅ FIXED DROPDOWN */
+.brand-dropdown{
+  display:none;
+  position:absolute;
+  top:120%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.95);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:14px;
+  padding:14px;
+  width:260px;
+  max-width:90vw;
+  z-index:999;
+}
+
+.brand-menu.show .brand-dropdown{display:block}
+
+/* ✅ FIXED GRID */
+.brand-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  justify-items:center;
+}
+
+.brand-item{
+  cursor:pointer;
+  font-size:13px;
+  color:#ddd;
+  text-align:center;
+  width:100%;
+}
+.brand-item img{
+  width:100%;
+  border-radius:10px;
+  margin-bottom:5px;
+}
+.brand-item:hover{color:#d4af37}
+
+/* HERO – CLEAN BANNER ONLY */
+.hero{
+  min-height:220px;              /* height kam */
+  padding:30px 20px;
+
+ background:
+  linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.65)),
+  url("b1.jpeg") center top / cover no-repeat;
+
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* GOLD LIGHT ANIMATION */
+.hero{
+  min-height:220px;
+  padding:0;
+
+  background:
+    linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.35)), /* LIGHT overlay */
+    url("b1.jpeg") center top / cover no-repeat;
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* PRODUCTS */
+.container{max-width:1200px;margin:auto;padding:20px}
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+  justify-content:center;
+  align-items:stretch;            /* ✅ same height */
+}
+
+.product{
+  background:#050505;
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:14px;
+  padding:12px;
+  text-align:center;
+  margin:auto;
+
+  display:flex;                   /* ✅ equal layout */
+  flex-direction:column;
+  justify-content:space-between;
+  height:100%;
+}
+
+/* ✅ SAME IMAGE SIZE */
+.product img{
+  width:100%;
+  height:200px;                   /* 🔑 fixed height */
+  object-fit:contain;             /* image cut nahi hogi */
+  border-radius:10px;
+  background:#000;
+}
+
+.price{color:#d4af37;margin:6px 0}
+
+.btn{
+  display:inline-block;
+  background:#d4af37;
+  color:#000;
+  padding:6px 14px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:14px;
+}
+
+/* MOBILE */
+.mobile-products{display:none}
+.mobile-row{display:flex;gap:14px;overflow-x:auto}
+.mobile-section{margin-bottom:20px}
+.mobile-title{
+  font-size:16px;
+  font-weight:bold;
+  color:#d4af37;
+  margin-bottom:8px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:16px;
+  border-top:1px solid rgba(212,175,55,.3);
+  color:#aaa;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .products{display:none}
+  .mobile-products{display:block}
+}
+  /* ❌ RIGHT SIDE FLOATING FIX */
+.mobile-products{
+  position:static !important;
+  width:100%;
+  max-width:100%;
+  margin-top:30px;
+}
+
+/* ❌ REMOVE RIGHT STICK */
+.mobile-row{
+  position:static !important;
+  overflow-x:auto;
+}
+
+/* ✅ DESKTOP: HIDE RIGHT PANEL */
+@media(min-width:769px){
+  .mobile-products{
+    display:none !important;
+  }
+}
+
+/* ✅ MOBILE ONLY */
+@media(max-width:768px){
+  .mobile-products{
+    display:block;
+  }
+}
+ /* FEATURE BAR – SEARCH BAR STYLE */
+.feature-bar{
+  max-width:1200px;
+  margin:0 auto 20px;
+  padding:8px 16px;
+
+  text-align:center;
+  font-size:14px;
+
+  color:#d4af37;
+
+  background:rgba(255,255,255,.06);   /* same glass feel */
+  border:1px solid rgba(212,175,55,.4); /* same gold border */
+  border-radius:20px;                  /* same round shape */
+
+  box-shadow:
+    inset 0 0 12px rgba(212,175,55,.12);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .feature-bar{
+    font-size:13px;
+    padding:10px 12px;
+    margin:10px 10px 20px;
+  }
+}
+ 
+</style>
+</head>
+<body>
+
+<!-- ⬇️ BODY + SCRIPT SAME AS YOUR FILE ⬇️ -->
+<header>
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="logo.jpg" alt="Logo">
+    <span class="store-name">Haider Mobiles & Accessories</span>
+  </div>
+  <nav>
+    <a onclick="showAll()">Home</a>
+    <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+
+    <!-- Brand Menus -->
+    <!-- RoyalX -->
+<div class="brand-menu">
+  <a onclick="toggleMenu(this)">RoyalX</a>
+  <div class="brand-dropdown">
+    <div class="brand-grid">
+
+      <a class="brand-item" href="royalx-hf.html">
+        <img src="25.jpg">
+        RoyalX Handsfree
+      </a>
+
+      <a class="brand-item" href="royalx-air.html">
+        <img src="26.jpg">
+        RoyalX Airbuds
+      </a>
+
+      <a class="brand-item" href="royalx-charger.html">
+        <img src="28.jpg">
+        RoyalX Charger
+      </a>
+
+      <a class="brand-item" href="royalx-adapter.html">
+        <img src="29.jpg">
+        RoyalX Adapter
+      </a>
+
+      <a class="brand-item" href="royalx-cable.html">
+        <img src="30.jpg">
+        RoyalX Data Cable
+      </a>
+
+    </div>
+  </div>
+</div>
+
+    <!-- Jcell -->
+<div class="brand-menu">
+  <a onclick="toggleMenu(this)">Jcell</a>
+  <div class="brand-dropdown">
+    <div class="brand-grid">
+
+      <a class="brand-item" href="jcell-hf1.html">
+        <img src="1.jpg">
+        Jcell Handsfree
+      </a>
+
+      <a class="brand-item" href="jcell-air1.html">
+        <img src="2.jpg">
+        Jcell Airbuds
+      </a>
+
+      <a class="brand-item" href="jcell-charger1.html">
+        <img src="G1.jpeg">
+        Jcell Charger
+      </a>
+
+      <a class="brand-item" href="jcell-adapter1.html">
+        <img src="5.jpg">
+        Jcell Adapter
+      </a>
+
+      <a class="brand-item" href="jcell-cable1.html">
+        <img src="6.jpg">
+        Jcell Data Cable
+      </a>
+
+    </div>
+  </div>
+</div>
+
+    <!-- Geman -->
+<div class="brand-menu">
+  <a onclick="toggleMenu(this)">Geman</a>
+  <div class="brand-dropdown">
+    <div class="brand-grid">
+
+      <a class="brand-item" href="g1.html">
+        <img src="G1.jpeg">
+        Geman G181
+      </a>
+
+      <a class="brand-item" href="g218.html">
+        <img src="G2.jpeg">
+        Geman G218
+      </a>
+
+      <a class="brand-item" href="g213.html">
+        <img src="G3.jpeg">
+        Geman G213
+      </a>
+
+    </div>
+  </div>
+</div>
+   <!-- KMC -->
+<div class="brand-menu">
+  <a onclick="toggleMenu(this)">KMC</a>
+  <div class="brand-dropdown">
+    <div class="brand-grid">
+
+      <a class="brand-item" href="kmc-hf1.html">
+        <img src="13.jpg">
+        KMC Handsfree
+      </a>
+
+      <a class="brand-item" href="kmc-air1.html">
+        <img src="14.jpg">
+        KMC Airbuds
+      </a>
+
+      <a class="brand-item" href="kmc-charger1.html">
+        <img src="16.jpg">
+        KMC Charger
+      </a>
+
+      <a class="brand-item" href="kmc-adapter1.html">
+        <img src="17.jpg">
+        KMC Adapter
+      </a>
+
+      <a class="brand-item" href="kmc-cable1.html">
+        <img src="18.jpg">
+        KMC Data Cable
+      </a>
+
+    </div>
+  </div>
+</div>
+
+    <!-- Ronin -->
+<div class="brand-menu">
+  <a onclick="toggleMenu(this)">Ronin</a>
+  <div class="brand-dropdown">
+    <div class="brand-grid">
+
+      <a class="brand-item" href="ronin-hf1.html">
+        <img src="19.jpg">
+        Ronin Handsfree
+      </a>
+
+      <a class="brand-item" href="ronin-air1.html">
+        <img src="20.jpg">
+        Ronin Airbuds
+      </a>
+
+      <a class="brand-item" href="ronin-charger1.html">
+        <img src="22.jpg">
+        Ronin Charger
+      </a>
+
+      <a class="brand-item" href="ronin-adapter1.html">
+        <img src="23.jpg">
+        Ronin Adapter
+      </a>
+
+      <a class="brand-item" href="ronin-cable1.html">
+        <img src="24.jpg">
+        Ronin Data Cable
+      </a>
+
+    </div>
+  </div>
+</div>
+
+
+  </nav>
+</header>
+
+<section class="hero">
+</section>
+  <div class="feature-bar">
+  ⚡ Fast Chargers &nbsp; 🎧 Quality Handsfree &nbsp; 🔌 Original Cables &nbsp; 🎵 Airbuds
+</div>
+<div class="container">
+
+<!-- MOBILE SWIPE ROWS -->
+<div class="mobile-products">
+  <div class="mobile-section">
+    <div class="mobile-title">Handfree</div>
+    <div class="mobile-row" id="m-hand"></div>
+  </div>
+  <div class="mobile-section">
+    <div class="mobile-title">Charger</div>
+    <div class="mobile-row" id="m-charger"></div>
+  </div>
+  <div class="mobile-section">
+    <div class="mobile-title">Airbuds</div>
+    <div class="mobile-row" id="m-air"></div>
+  </div>
+  <div class="mobile-section">
+    <div class="mobile-title">Data Cable</div>
+    <div class="mobile-row" id="m-cable"></div>
+  </div>
+</div>
+
+<div class="products">
+
+<!-- Handfree -->
+<div class="product" data-category="handfree">
+  <a href="rh15.html"><img src="30.jpeg" alt="RoyalX Handfree RH-15"></a>
+  <h3><a href="rh15.html" style="color:#fff;text-decoration:none">RoyalX Handfree RH-15</a></h3>
+  <div class="price">Rs 450</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Handfree%20RH-15">Order</a>
+</div>
+<div class="product" data-category="handfree">
+  <a href="rh5.html"><img src="33.jpeg" alt="RoyalX Handfree RH-5"></a>
+  <h3><a href="rh5.html" style="color:#fff;text-decoration:none">RoyalX Handfree RH-5</a></h3>
+  <div class="price">Rs 350</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Handfree%20RH-5">Order</a>
+</div>
+<div class="product" data-category="handfree">
+  <a href="rh6.html?id=royalx-rh6"><img src="32.jpeg" alt="RoyalX Handfree RH-6"></a>
+  <h3><a href="rh6.html?id=royalx-rh6" style="color:#fff;text-decoration:none">RoyalX Handfree RH-6</a></h3>
+  <div class="price">Rs 900</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Handfree%20RH-6">Order</a>
+</div>
+<div class="product" data-category="handfree">
+  <a href="rh9.html"><img src="26.jpeg" alt="RoyalX Handfree RH-9"></a>
+  <h3><a href="rh9.html" style="color:#fff;text-decoration:none">RoyalX Handfree RH-9</a></h3>
+  <div class="price">Rs 750</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Handfree%20RH-9">Order</a>
+</div>
+
+<!-- Charger -->
+<div class="product" data-category="charger">
+  <a href="31.jpeg"><img src="31.jpeg" alt="RoyalX Charger RPD-40"></a>
+  <h3><a href="product.html?id=royalx-rpd40" style="color:#fff;text-decoration:none">RoyalX Charger RPD-40</a></h3>
+  <div class="price">Rs 2500</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Charger%20RPD-40">Order</a>
+</div>
+<div class="product" data-category="charger">
+  <a href="g1.html?id=geman-g181"><img src="G1.jpeg" alt="Geman G181 Charger"></a>
+  <h3><a href="g1.html?id=geman-g181" style="color:#fff;text-decoration:none">Geman G181</a></h3>
+  <div class="price">Rs 1500</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20Geman%20G181">Order</a>
+</div>
+<div class="product" data-category="charger">
+  <a href="g218.html?id=geman-g218"><img src="G2.jpeg" alt="Geman G218 Charger"></a>
+  <h3><a href="g218.html?id=geman-g218" style="color:#fff;text-decoration:none">Geman G218</a></h3>
+  <div class="price">Rs 800</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20Geman%20G218">Order</a>
+</div>
+<div class="product" data-category="charger">
+  <a href="g213.html?id=geman-g213"><img src="G3.jpeg" alt="Geman G213 Charger"></a>
+  <h3><a href="g213.html?id=geman-g213" style="color:#fff;text-decoration:none">Geman G213</a></h3>
+  <div class="price">Rs 700</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20Geman%20G213">Order</a>
+</div>
+
+<!-- Airbuds -->
+<div class="product" data-category="airbuds">
+  <a href="rbt800.html"><img src="28.jpeg" alt="RoyalX Airbuds RBT-800"></a>
+  <h3><a href="rbt800.html" style="color:#fff;text-decoration:none">RoyalX Airbuds RBT-800</a></h3>
+  <div class="price">Rs 4500</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Airbuds%20RBT-800">Order</a>
+</div>
+<div class="product" data-category="airbuds">
+  <a href="rbt400.html"><img src="29.jpeg" alt="RoyalX Airbuds RBT-400"></a>
+  <h3><a href="rbt400.html" style="color:#fff;text-decoration:none">RoyalX Airbuds RBT-400</a></h3>
+  <div class="price">Rs 5000</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Airbuds%20RBT-400">Order</a>
+</div>
+
+<!-- Cable -->
+<div class="product" data-category="cable">
+  <a href="rc310.html"><img src="34.jpeg" alt="RoyalX Cable RC-310"></a>
+  <h3><a href="rc310.html" style="color:#fff;text-decoration:none">RoyalX Cable RC-310</a></h3>
+  <div class="price">Rs 1250</div>
+  <a class="btn" href="https://wa.me/923279518790?text=I%20want%20RoyalX%20Cable%20RC-310">Order</a>
+</div>
+
+</div>
+</div>
+
+<footer>
+© 2026 Haider Mobiles • Cash on Delivery Available
+</footer>
+
+<script>
+// Toggle brand menu
+function toggleMenu(el){
+  document.querySelectorAll('.brand-menu').forEach(m=>{
+    m.contains(el) ? m.classList.toggle('show') : m.classList.remove('show');
+  });
+}
+
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.brand-menu')){
+    document.querySelectorAll('.brand-menu').forEach(m=>m.classList.remove('show'));
+  }
+});
+
+// Search products
+function searchProducts(){
+  let q = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".product").forEach(p=>{
+    p.style.display = p.innerText.toLowerCase().includes(q) ? "block" : "none";
+  });
+}
+
+// Filter products by category
+function filterProducts(cat){
+  cat = cat.toLowerCase();
+  document.querySelectorAll('.product').forEach(p=>{
+    let c = (p.dataset.category || "").toLowerCase();
+    p.style.display = c.includes(cat) ? "block" : "none";
+  });
+}
+
+// Show all
+function showAll(){
+  document.querySelectorAll('.product').forEach(p=>p.style.display="block");
+}
+
+/* === MOBILE SWIPE AUTO-CLONE === */
+if(window.innerWidth <= 768){
+  document.querySelectorAll('.product').forEach(p=>{
+    let c = (p.dataset.category || "").toLowerCase();
+    if(c.includes('hand')) document.getElementById('m-hand')?.appendChild(p.cloneNode(true));
+    if(c.includes('charger')) document.getElementById('m-charger')?.appendChild(p.cloneNode(true));
+    if(c.includes('air')) document.getElementById('m-air')?.appendChild(p.cloneNode(true));
+    if(c.includes('cable')) document.getElementById('m-cable')?.appendChild(p.cloneNode(true));
+  });
+}
+</script>
+
+  </body>
+</html>

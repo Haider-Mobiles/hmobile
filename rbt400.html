@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RoyalX Airbuds RBT-400</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+body{
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  margin:0;
+}
+.container{max-width:1200px;margin:auto;padding:40px 20px}
+.top{display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
+
+/* SLIDER */
+.slider{position:relative}
+.slider img{width:100%;border-radius:16px;border:1px solid #222}
+.arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(0,0,0,.6);border:1px solid #333;
+  color:#fff;font-size:22px;padding:10px 14px;
+  cursor:pointer;border-radius:50%;
+}
+.arrow.left{left:10px}
+.arrow.right{right:10px}
+
+/* INFO */
+.price-box strong{font-size:28px;display:block}
+
+.btn{
+  background:#25D366;color:#000;padding:15px;
+  border-radius:12px;display:block;font-weight:bold;
+  text-align:center;text-decoration:none;margin-top:18px
+}
+.back{display:inline-block;margin-top:12px;color:#25D366;cursor:pointer}
+.stats{font-size:14px;color:#bbb;margin:6px 0}
+.trust{display:flex;gap:12px;flex-wrap:wrap;color:#ccc;margin:14px 0}
+
+/* SECTIONS */
+.section{margin-top:50px}
+.spec-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:14px
+}
+.spec{
+  background:#0f0f0f;border:1px solid #222;
+  padding:14px;border-radius:12px
+}
+
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:18px
+}
+.related-item{
+  background:#0f0f0f;border:1px solid #222;
+  border-radius:14px;padding:12px;cursor:pointer
+}
+.related-item img{width:100%;border-radius:10px}
+
+@media(max-width:768px){
+  .top{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="top">
+    <!-- IMAGE SLIDER -->
+    <div class="slider">
+      <img id="mainImg">
+      <div class="arrow left" onclick="prevImg()">‹</div>
+      <div class="arrow right" onclick="nextImg()">›</div>
+    </div>
+
+    <!-- INFO -->
+    <div>
+      <h1 id="name"></h1>
+
+      <div class="price-box">
+        <strong id="price"></strong>
+      </div>
+
+      <p id="desc"></p>
+
+      <div class="stats">👀 <span id="viewing"></span> customers are viewing</div>
+      <div class="stats">🔥 <span id="sold"></span> sold in last 18 hours</div>
+
+      <div class="trust">
+        <span>✔ Original</span>
+        <span>🔒 Secure Payment</span>
+        <span>🚚 Fast Shipping</span>
+      </div>
+
+      <a id="buy" class="btn" target="_blank">Buy on WhatsApp</a>
+      <a class="back" onclick="history.back()">← Back</a>
+    </div>
+  </div>
+
+  <!-- SPECS -->
+  <div class="section">
+    <h2>Specifications</h2>
+    <div class="spec-grid" id="specs"></div>
+  </div>
+
+  <!-- RELATED -->
+  <div class="section">
+    <h2>Other Products</h2>
+    <div class="related-grid" id="related"></div>
+  </div>
+
+</div>
+
+<script>
+const product = {
+  name:"RoyalX Airbuds RBT-400",
+  price:"Rs 5000",
+  desc:"RoyalX RBT-400 wireless airbuds with premium sound quality, stylish design and long-lasting battery. Perfect for music and calls.",
+  images:["29.jpeg"],
+  specs:[
+    "True Wireless Stereo (TWS)",
+    "Deep Bass & Clear Sound",
+    "Touch Control Support",
+    "Charging Case Included",
+    "Long Battery Backup",
+    "Comfortable In-ear Fit",
+    "Compatible with Android & iOS"
+  ],
+  related:[
+    {name:"RoyalX Handfree RH-6 (Type-C)",img:"32.jpeg",link:"rh6.html"},
+    {name:"RoyalX Handfree RH-9",img:"26.jpeg",link:"rh9.html"},
+    {name:"RoyalX Airbuds RBT-800",img:"28.jpeg",link:"rbt800.html"}
+  ]
+};
+
+let current=0;
+mainImg.src=product.images[0];
+name.textContent=product.name;
+price.textContent=product.price;
+desc.textContent=product.desc;
+viewing.textContent=Math.floor(Math.random()*15)+5;
+sold.textContent=Math.floor(Math.random()*30)+10;
+
+buy.href="https://wa.me/923279518790?text="+
+encodeURIComponent("I want "+product.name);
+
+specs.innerHTML=product.specs.map(s=>`<div class="spec">${s}</div>`).join("");
+related.innerHTML=product.related.map(r=>`
+  <div class="related-item" onclick="location.href='${r.link}'">
+    <img src="${r.img}">
+    <h4>${r.name}</h4>
+  </div>
+`).join("");
+
+function nextImg(){
+  current=(current+1)%product.images.length;
+  mainImg.src=product.images[current];
+}
+function prevImg(){
+  current=(current-1+product.images.length)%product.images.length;
+  mainImg.src=product.images[current];
+}
+</script>
+
+</body>
+</html>
